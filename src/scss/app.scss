@@ -3,7 +3,7 @@
 @import "./components/all";
 
 body {
-	background-color: #fff;
+	background-color: $background;
 }
 
 .wrapper {
@@ -23,15 +23,22 @@ body {
 	}
 
 	&__items {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		// grid-template-rows: repeat(2, 1fr);
+		grid-column-gap: 35px;
+		grid-row-gap: 65px;
 	}
 
 	&__top {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+
+    @media (max-width: 1290px) {
+      flex-direction: column-reverse;
+      row-gap: 24px;
+    }
 	}
 }
 
