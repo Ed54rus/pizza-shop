@@ -3,10 +3,6 @@
 .categories {
 	// overflow-x: auto;
 	width: 75%;
-	@media (max-width: 1290px) {
-		width: 100%;
-		text-align: center;
-	}
 	ul {
 		.swiper-slide {
 			width: fit-content;
@@ -32,6 +28,10 @@
 			@media (max-width: 1290px) {
 				margin-bottom: 16px;
 			}
+			@media (max-width: 400px) {
+				padding: 10px 20px;
+				border-radius: 20px;
+			}
 
 			&:hover {
 				background-color: darken(#f9f9f9, 2%);
@@ -46,5 +46,9 @@
 				color: #fff;
 			}
 		}
+	}
+	@media (max-width: 1290px) {
+		width: 100%;
+		text-align: center;
 	}
 }

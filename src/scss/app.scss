@@ -20,6 +20,8 @@ body {
 
 	&__title {
 		margin: 35px 0;
+    font-weight: 800;
+    font-size: 34px;
 	}
 
 	&__items {
@@ -35,10 +37,10 @@ body {
 		align-items: center;
 		justify-content: space-between;
 
-    @media (max-width: 1290px) {
-      flex-direction: column-reverse;
-      row-gap: 24px;
-    }
+		@media (max-width: 1290px) {
+			flex-direction: column-reverse;
+			row-gap: 24px;
+		}
 	}
 }
 
@@ -52,6 +54,10 @@ body {
 		.content__title {
 			margin: 0;
 		}
+	}
+	@media (max-width: 400px) {
+	width: $container-width-small;
+
 	}
 }
 
