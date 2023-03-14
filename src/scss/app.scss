@@ -11,8 +11,10 @@ body {
 	height: 100%;
 	background-color: #fff;
 	margin: 50px auto;
-	border-radius: 10px;
 	max-width: 1400px;
+	@media (max-width: 600px) {
+		margin: 0px auto;
+	}
 }
 
 .content {
@@ -20,8 +22,8 @@ body {
 
 	&__title {
 		margin: 35px 0;
-    font-weight: 800;
-    font-size: 34px;
+		font-weight: 800;
+		font-size: 34px;
 	}
 
 	&__items {
@@ -56,8 +58,7 @@ body {
 		}
 	}
 	@media (max-width: 400px) {
-	width: $container-width-small;
-
+		width: $container-width-small;
 	}
 }
 
