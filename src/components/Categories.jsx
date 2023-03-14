@@ -1,24 +1,37 @@
 import React, { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Scrollbar } from "swiper";
+
+import "swiper/css";
+import "swiper/css/scrollbar";
 
 const Categories = () => {
 	const [activeCategory, setActiveCategory] = useState(0);
 
 	const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
 
-
-
 	return (
 		<div className="categories">
 			<ul>
-				{categories.map((category, id) => (
-					<li
-						className={activeCategory === id ? "active" : ""}
-						onClick={() => setActiveCategory(id)}
-						key={id}
-					>
-						{category}
-					</li>
-				))}
+				<Swiper
+					slidesPerView={"auto"}
+					spaceBetween={10}
+					scrollbar={{
+						hide: true,
+					}}
+					modules={[Scrollbar]}
+				>
+					{categories.map((category, id) => (
+						<SwiperSlide key={id}>
+							<li
+								className={activeCategory === id ? "active" : ""}
+								onClick={() => setActiveCategory(id)}
+							>
+								{category}
+							</li>
+						</SwiperSlide>
+					))}
+				</Swiper>
 			</ul>
 		</div>
 	);

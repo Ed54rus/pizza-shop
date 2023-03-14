@@ -1,15 +1,25 @@
 @import "../variables";
 
 .categories {
-	overflow-x: auto;
-	width: 95%;
-	// &::-webkit-scrollbar {
-	// 	background-color: transparent;
-	// }
+	// overflow-x: auto;
+	width: 75%;
+	@media (max-width: 1290px) {
+		width: 100%;
+		text-align: center;
+	}
 	ul {
-		display: inline-flex;
-		column-gap: 10px;
-		overflow: hidden;
+		.swiper-slide {
+			width: fit-content;
+		}
+		.swiper-scrollbar-horizontal {
+			height: var(--swiper-scrollbar-size, 3px);
+			bottom: var(--swiper-scrollbar-bottom, 3px);
+		}
+
+		@media (max-width: 1290px) {
+			display: flex;
+			justify-content: center;
+		}
 
 		li {
 			background-color: #f9f9f9;
@@ -19,6 +29,9 @@
 			cursor: pointer;
 			transition: background-color 0.1s ease-in-out;
 			@include noselect();
+			@media (max-width: 1290px) {
+				margin-bottom: 16px;
+			}
 
 			&:hover {
 				background-color: darken(#f9f9f9, 2%);
