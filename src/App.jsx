@@ -14,18 +14,18 @@ export const SearchContext = React.createContext();
 const App = () => {
 	const [searchValue, setSearchValue] = React.useState('');
 
-	const count = useSelector((state) => state.counter.count);
-	const dispatch = useDispatch();
+	// const count = useSelector((state) => state.counter.count);
+	// const dispatch = useDispatch();
 
 	return (
 		<div className='wrapper'>
-			<button aria-label='Increment value' onClick={() => dispatch(test())}>
+			{/* <button aria-label='Increment value' onClick={() => dispatch(test())}>
 				Increment
 			</button>
 			<span>{count}</span>
 			<button aria-label='Decrement value' onClick={() => dispatch(decrement())}>
 				Decrement
-			</button>
+			</button> */}
 
 			<SearchContext.Provider value={{ searchValue, setSearchValue }}>
 				<Header />
