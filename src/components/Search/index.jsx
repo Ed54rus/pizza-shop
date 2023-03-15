@@ -1,10 +1,12 @@
 import React from 'react';
-
+import { SearchContext } from '../../App';
 import { HiOutlineSearch } from 'react-icons/hi';
 import { IoMdClose } from 'react-icons/io';
 
 import styles from './Search.module.scss';
-const Search = ({ searchValue, setSearchValue }) => {
+
+const Search = () => {
+	const { searchValue, setSearchValue } = React.useContext(SearchContext);
 	return (
 		<div className={styles.root}>
 			<HiOutlineSearch className={styles.iconSearch} />

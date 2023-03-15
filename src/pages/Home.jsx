@@ -1,11 +1,13 @@
 import React from 'react';
+import { SearchContext } from '../App';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/pizzaBlock';
 import Skeleton from '../components/pizzaBlock/Skeleton';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
+	const { searchValue } = React.useContext(SearchContext);
 	const [items, setItems] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [categoryId, setCategoryId] = React.useState(0);
@@ -13,7 +15,6 @@ const Home = ({ searchValue }) => {
 	const [sortBy, setSortBy] = React.useState(true);
 
 	const skeleton = [...new Array(8)].map((_, id) => <Skeleton key={id} />);
-	console.log(searchValue);
 	const pizzas = items
 		.filter((pizza) => pizza.title.toLowerCase().includes(searchValue.toLowerCase()))
 		.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />);
