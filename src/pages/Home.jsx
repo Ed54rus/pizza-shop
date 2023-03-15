@@ -1,16 +1,23 @@
-import React from "react";
+import React from 'react';
 
-import Categories from "../components/Categories";
-import Sort from "../components/Sort";
-import PizzaBlock from "../components/pizzaBlock";
-import Skeleton from "../components/pizzaBlock/Skeleton";
+import Categories from '../components/Categories';
+import Sort from '../components/Sort';
+import PizzaBlock from '../components/pizzaBlock';
+import Skeleton from '../components/pizzaBlock/Skeleton';
 
-const Home = () => {
+const Home = ({ searchValue }) => {
 	const [items, setItems] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [categoryId, setCategoryId] = React.useState(0);
-	const [sortType, setSortType] = React.useState({ name: "популярности", sortProperty: "rating" });
+	const [sortType, setSortType] = React.useState({ name: 'популярности', sortProperty: 'rating' });
 	const [sortBy, setSortBy] = React.useState(true);
+
+	const skeleton = [...new Array(8)].map((_, id) => <Skeleton key={id} />);
+	console.log(searchValue);
+	const pizzas = items
+		.filter((pizza) => pizza.title.toLowerCase().includes(searchValue.toLowerCase()))
+		.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />);
+
 	React.useEffect(() => {
 		setIsLoading(true);
 
@@ -30,8 +37,8 @@ const Home = () => {
 	}, [categoryId, sortType, sortBy]);
 
 	return (
-		<div className="container">
-			<div className="content__top">
+		<div className='container'>
+			<div className='content__top'>
 				<Categories value={categoryId} onChangeCategory={(id) => setCategoryId(id)} />
 				<Sort
 					value={sortType}
@@ -40,12 +47,8 @@ const Home = () => {
 					onChangeSortBy={() => setSortBy(!sortBy)}
 				/>
 			</div>
-			<h2 className="content__title">Все пиццы</h2>
-			<div className="content__items">
-				{isLoading
-					? [...new Array(8)].map((_, id) => <Skeleton key={id} />)
-					: items.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />)}
-			</div>
+			<h2 className='content__title'>Все пиццы</h2>
+			<div className='content__items'>{isLoading ? skeleton : pizzas}</div>
 		</div>
 	);
 };
