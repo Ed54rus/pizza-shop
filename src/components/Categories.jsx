@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper";
 
 import "swiper/css";
 import "swiper/css/scrollbar";
 
-const Categories = () => {
-	const [activeCategory, setActiveCategory] = useState(0);
+const Categories = ({ value, onChangeCategory }) => {
 
 	const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
 
@@ -24,8 +23,8 @@ const Categories = () => {
 					{categories.map((category, id) => (
 						<SwiperSlide key={id}>
 							<li
-								className={activeCategory === id ? "active" : ""}
-								onClick={() => setActiveCategory(id)}
+								className={value === id ? "active" : ""}
+								onClick={() => onChangeCategory(id)}
 							>
 								{category}
 							</li>

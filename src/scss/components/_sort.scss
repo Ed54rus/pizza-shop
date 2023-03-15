@@ -1,47 +1,56 @@
-@import '../variables';
+@import "../variables";
 
 .sort {
-  position: relative;
-  &__label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+	position: relative;
 
-    span {
-      color: $orange;
-      border-bottom: 1px dashed $orange;
-      cursor: pointer;
-    }
-  }
+	&__type {
+		display: flex;
+		cursor: pointer;
+		&.active {
+			transform: rotateX(175deg);
+		}
+	}
 
-  &__popup {
-    position: absolute;
-    right: 0;
-    margin-top: 15px;
-    background: #ffffff;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.09);
-    border-radius: 10px;
-    overflow: hidden;
-    padding: 10px 0;
-    width: 160px;
-    z-index: 10;
+	&__label {
+		display: flex;
+		align-items: center;
+		gap: 8px;
 
-    ul {
-      overflow: hidden;
-      li {
-        padding: 12px 20px;
-        cursor: pointer;
+		span {
+			color: $orange;
+			border-bottom: 1px dashed $orange;
+			cursor: pointer;
+		}
+	}
 
-        &.active,
-        &:hover {
-          background: rgba(254, 95, 30, 0.05);
-        }
+	&__popup {
+		position: absolute;
+		right: 0;
+		margin-top: 15px;
+		background: #ffffff;
+		box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.09);
+		border-radius: 10px;
+		overflow: hidden;
+		padding: 10px 0;
+		// width: 160px;
+		z-index: 10;
 
-        &.active {
-          font-weight: bold;
-          color: $orange;
-        }
-      }
-    }
-  }
+		ul {
+			overflow: hidden;
+			li {
+				padding: 12px 20px;
+				cursor: pointer;
+
+				&.active,
+				&:hover {
+					background: rgba(254, 95, 30, 0.05);
+				}
+
+				&.active {
+					font-weight: bold;
+					color: $orange;
+				}
+			}
+		}
+	}
 }

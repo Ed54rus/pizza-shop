@@ -10,11 +10,8 @@ body {
 	// width: calc(100vw - 30px);
 	height: 100%;
 	background-color: #fff;
-	margin: 50px auto;
+	margin: 0 auto;
 	max-width: 1400px;
-	@media (max-width: 600px) {
-		margin: 0px auto;
-	}
 }
 
 .content {
