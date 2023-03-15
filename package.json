@@ -1,6 +1,6 @@
 {
 	"name": "pizza-shop",
-	"homepage": "https://ed54rus.github.io/pizza-shop/index",
+	"homepage": "https://ed54rus.github.io/pizza-shop/",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
