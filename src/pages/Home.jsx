@@ -1,8 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { setCategoryId } from '../redux/slices/filterSlice';
-
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/pizzaBlock';
@@ -20,7 +19,7 @@ const Home = () => {
 
 	const skeleton = [...new Array(8)].map((_, id) => <Skeleton key={id} />);
 	const pizzas = items
-		.filter((pizza) => pizza.title.toLowerCase().includes(searchValue.toLowerCase()))
+		// .filter((pizza) => pizza.title.toLowerCase().includes(searchValue.toLowerCase()))
 		.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />);
 
 	const onChangeCategory = (id) => {
@@ -30,20 +29,20 @@ const Home = () => {
 	React.useEffect(() => {
 		setIsLoading(true);
 
-		fetch(
-			`https://640d9ee91a18a5db837b0858.mockapi.io/items?${
-				categoryId > 0 ? `category=${categoryId}` : ``
-			}&sortBy=${sortType.property}&order=${sortByAsc ? `asc` : `desc`}`
-		)
+		const category = categoryId > 0 ? `&category=${categoryId}` : ``;
+		const sortBy = `&sortBy=${sortType.property}`;
+		const order = sortByAsc ? `&order=asc` : `&order=desc`;
+		const search = searchValue ? `&search=${searchValue}` : '';
+
+		axios
+			.get(`https://640d9ee91a18a5db837b0858.mockapi.io/items?${category}${sortBy}${order}${search}`)
 			.then((res) => {
-				return res.json();
-			})
-			.then((arr) => {
-				setItems(arr);
+				setItems(res.data);
 				setIsLoading(false);
 			});
+
 		window.scrollTo(0, 0);
-	}, [categoryId, sortType, sortByAsc]);
+	}, [categoryId, sortType, sortByAsc, searchValue]);
 
 	return (
 		<div className='container'>
