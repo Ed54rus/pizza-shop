@@ -2,17 +2,17 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSortType, setSortByAsc } from '../redux/slices/filterSlice';
 
-const sortList = [
+export const sortList = [
 	{ name: 'популярности', property: 'rating' },
 	{ name: 'цене', property: 'price' },
 	{ name: 'названию', property: 'title' },
 ];
 
-const Sort = () => {
+export const Sort = () => {
 	const dispatch = useDispatch();
 	const { sortType, sortByAsc } = useSelector((state) => state.filter);
-
 	const [toggleSortPopup, setToggleSortPopup] = React.useState(false);
+	const sortRef = React.useRef();
 
 	const onClickSortName = (obj) => {
 		dispatch(setSortType(obj));
@@ -21,8 +21,19 @@ const Sort = () => {
 	const onChangeSortByAsc = () => {
 		dispatch(setSortByAsc(!sortByAsc));
 	};
+
+	React.useEffect(() => {
+		const handleClickOutsideSort = (event) => {
+			if (!event.path.includes(sortRef.current)) {
+				setToggleSortPopup(false);
+			}
+		};
+		document.body.addEventListener('click', handleClickOutsideSort);
+		return () => document.body.removeEventListener('click', handleClickOutsideSort);
+	}, []);
+
 	return (
-		<div className='sort'>
+		<div className='sort' ref={sortRef}>
 			<div className='sort__label'>
 				<div
 					className={sortByAsc ? 'sort__type' : 'sort__type active'}
@@ -62,5 +73,3 @@ const Sort = () => {
 		</div>
 	);
 };
-
-export default Sort;

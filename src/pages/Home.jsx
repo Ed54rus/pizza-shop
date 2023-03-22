@@ -1,15 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import qs from 'qs';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId} from '../redux/slices/filterSlice';
 import Categories from '../components/Categories';
-import Sort from '../components/Sort';
+import { Sort } from '../components/Sort';
 import PizzaBlock from '../components/pizzaBlock';
 import Skeleton from '../components/pizzaBlock/Skeleton';
 
 import { SearchContext } from '../App';
 
 const Home = () => {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { categoryId, sortType, sortByAsc } = useSelector((state) => state.filter);
 
@@ -17,14 +20,14 @@ const Home = () => {
 	const [items, setItems] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(true);
 
-	const skeleton = [...new Array(8)].map((_, id) => <Skeleton key={id} />);
-	const pizzas = items
-		// .filter((pizza) => pizza.title.toLowerCase().includes(searchValue.toLowerCase()))
-		.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />);
+	const onChangeCategory = React.useCallback(
+		(id) => {
+			dispatch(setCategoryId(id));
+		},
+		[dispatch]
+	);
 
-	const onChangeCategory = (id) => {
-		dispatch(setCategoryId(id));
-	};
+	
 
 	React.useEffect(() => {
 		setIsLoading(true);
@@ -35,15 +38,27 @@ const Home = () => {
 		const search = searchValue ? `&search=${searchValue}` : '';
 
 		axios
-			.get(`https://640d9ee91a18a5db837b0858.mockapi.io/items?${category}${sortBy}${order}${search}`)
+			.get(
+				`https://640d9ee91a18a5db837b0858.mockapi.io/items?${category}${sortBy}${order}${search}`
+			)
 			.then((res) => {
 				setItems(res.data);
 				setIsLoading(false);
 			});
-
-		window.scrollTo(0, 0);
 	}, [categoryId, sortType, sortByAsc, searchValue]);
 
+	React.useEffect(() => {
+		const queryString = qs.stringify({
+			sortProperty: sortType.property,
+			categoryId,
+			sortByAsc,
+		});
+		navigate(`?${queryString}`);
+	}, [categoryId, sortType, sortByAsc, navigate]);
+
+	const skeleton = [...new Array(8)].map((_, id) => <Skeleton key={id} />);
+	const pizzas = items.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />);
+ 
 	return (
 		<div className='container'>
 			<div className='content__top'>
