@@ -24,7 +24,7 @@ export const Sort = () => {
 
 	React.useEffect(() => {
 		const handleClickOutsideSort = (event) => {
-			if (!event.path.includes(sortRef.current)) {
+			if (!event.composedPath().includes(sortRef.current)) {
 				setToggleSortPopup(false);
 			}
 		};
